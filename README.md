@@ -12,7 +12,7 @@ bun install
 
 ```sh
 bun run db:up
-bun run db: migrate
+bun run db:migrate
 ```
 
 4. To run:
