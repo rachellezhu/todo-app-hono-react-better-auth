@@ -13,7 +13,7 @@ function TanStackQueryDemo() {
   const { data } = useQuery({
     queryKey: ['todos'],
     queryFn: async () => {
-      const res = await client.api.people.$get()
+      const res = await client.api.todos.$get()
 
       if (!res.ok) throw new Error('failed to fetch people')
 
@@ -40,7 +40,12 @@ function TanStackQueryDemo() {
               key={todo.id}
               className="bg-white/10 border border-white/20 rounded-lg p-3 backdrop-blur-sm shadow-md"
             >
-              <span className="text-lg text-white">{todo.name}</span>
+              <span className="text-lg text-white">{todo.title}</span>&nbsp;
+              <span className="text-lg text-white">{todo.description}</span>
+              &nbsp;
+              <span className="text-lg text-white">
+                {todo.completed ? 'done' : 'not done yet'}
+              </span>
             </li>
           ))}
         </ul>
