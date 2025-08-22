@@ -15,6 +15,13 @@
       "when": 1755204443828,
       "tag": "0001_pretty_sharon_ventura",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1755821064034,
+      "tag": "0002_round_stick",
+      "breakpoints": true
     }
   ]
 }

@@ -11,6 +11,9 @@ export const todos = pgTable("todos", {
   id: uuid().primaryKey().defaultRandom(),
   title: varchar({ length: 500 }).notNull(),
   description: varchar({ length: 1000 }),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
   completed: boolean().default(false),
   createdAt: timestamp({ withTimezone: true }).defaultNow(),
   updatedAt: timestamp({ withTimezone: true }).defaultNow(),

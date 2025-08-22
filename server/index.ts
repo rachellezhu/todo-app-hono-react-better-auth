@@ -1,16 +1,15 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { getTodos } from "./db/queries";
 import { auth } from "./lib/auth";
+import { HonoEnv } from "./types";
+import { todos } from "./routes/todo.routes";
 
-const app = new Hono().basePath("/api");
+const app = new Hono<HonoEnv>().basePath("/api");
 
 const router = app
   .on(["POST", "GET"], "/auth/**", (c) => auth.handler(c.req.raw))
   .use("*", cors())
-  .get("/", (c) => {
-    return c.text("Hello Hono!");
-  })
+  .route("/todos", todos)
   .get("/people", (c) => {
     const people = [
       { id: 1, name: "Alice" },
@@ -19,21 +18,6 @@ const router = app
     ];
 
     return c.json(people);
-  })
-  .get("/todos", async (c) => {
-    try {
-      const todos = await getTodos();
-
-      return c.json(todos);
-    } catch (error) {
-      console.log("Failed to fetch todos: ", error);
-      return c.json(
-        {
-          error: "Failed to fetch todos",
-        },
-        500
-      );
-    }
   });
 
 export type AppType = typeof router;

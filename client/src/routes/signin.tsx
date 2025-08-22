@@ -1,12 +1,20 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { Lock, Mail } from 'lucide-react'
-import { signIn } from '../../../server/lib/auth-client'
+import { signIn, useSession } from '../../../server/lib/auth-client'
+import { useEffect } from 'react'
 
 export const Route = createFileRoute('/signin')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  const { data } = useSession()
+  const navigate = useNavigate({ from: '/signin' })
+
+  useEffect(() => {
+    if (data?.session) navigate({ to: '/' })
+  }, [data])
+
   return (
     <div className="bg-base-100 flex items-center justify-center pt-12">
       <div className="card bg-base-300">

@@ -1,9 +1,14 @@
 import { Link, useNavigate } from '@tanstack/react-router'
 import { signOut, useSession } from '../../../server/lib/auth-client'
+import { useEffect } from 'react'
 
 export default function Header() {
   const { data } = useSession()
   const navigate = useNavigate({ from: '/' })
+
+  useEffect(() => {
+    if (!data?.session) navigate({ to: '/signin' })
+  }, [data])
 
   return (
     <header className="p-2 flex gap-2 bg-white text-black justify-between">
@@ -30,16 +35,7 @@ export default function Header() {
               <button
                 className="hover:cursor-pointer"
                 onClick={async () => {
-                  await signOut({
-                    fetchOptions: {
-                      onSuccess: () => {
-                        return navigate({ to: '/signin' })
-                      },
-                      onError: (ctx) => {
-                        throw new Error(ctx.error.message)
-                      },
-                    },
-                  })
+                  await signOut()
                 }}
               >
                 Sign out

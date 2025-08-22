@@ -3,7 +3,7 @@ import * as schema from "../server/db/schema";
 import { seed } from "drizzle-seed";
 
 const seedDb = async () => {
-  await seed(db, schema).refine((funcs) => ({
+  await seed(db, { todos: schema.todos }).refine((funcs) => ({
     todos: {
       columns: {
         title: funcs.valuesFromArray({
@@ -24,6 +24,9 @@ const seedDb = async () => {
             "monthly",
             undefined,
           ],
+        }),
+        userId: funcs.valuesFromArray({
+          values: ["zhYWnri27KqtKt48wRsf19oubkNa3uuJ"],
         }),
       },
     },

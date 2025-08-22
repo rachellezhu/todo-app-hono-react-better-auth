@@ -26,9 +26,9 @@ function RouteComponent() {
       <div className="space-y-3">
         {isLoading && (
           <>
-            {[1, 2, 3, 4, 5].map(() => {
+            {[1, 2, 3, 4, 5].map((i) => {
               return (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2" key={i}>
                   <div className="skeleton h-8 w-8 rounded-full"></div>
                   <div className="skeleton h-6 w-32 rounded-full"></div>
                 </div>
@@ -49,11 +49,12 @@ function RouteComponent() {
           data &&
           data.map((todo) => {
             return (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2" key={todo.id}>
                 <input
                   type="checkbox"
                   className="checkbox checkbox-primary"
-                  id=""
+                  id={todo.id}
+                  checked={todo.completed!}
                 />
                 <span>{todo.title}</span>
               </div>
